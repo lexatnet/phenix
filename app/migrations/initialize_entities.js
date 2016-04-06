@@ -1,5 +1,4 @@
 var async = require('async');
-var extend = require('extend');
 var logger = require('libs/log')(module);
 
 var Locale = require('models/locale').Locale;
@@ -140,7 +139,7 @@ function initialize_entities(cb) {
       },
       function(locale, callback) {
         permissions.map(function(permissionData) {
-          extend(true, permissionData, {
+          Object.assign( permissionData, {
             localeId: locale.id
           });
         });
@@ -150,7 +149,7 @@ function initialize_entities(cb) {
       },
       function(locale, callback) {
         roles.map(function(roleData) {
-          extend(true, roleData, {
+          Object.assign(roleData, {
             localeId: locale.id
           });
         });

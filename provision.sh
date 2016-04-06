@@ -46,6 +46,6 @@ cd app
 npm install supervisor -g
 npm install -g node-inspector
 npm install
-npm initialize
+npm run initialize
 # start application
 # npm start

@@ -122,7 +122,7 @@ class StringManager extends EventEmitter{
 	          function(err, results) {
 	            if (err) return callback(err);
 	            results.forEach(function(result) {
-	              extend(true, own._register, result);
+	              Object.assign(own._register, result);
 	            });
 	            callback(null);
 	          }
