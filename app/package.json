@@ -6,9 +6,9 @@
   "scripts": {
     "debug": "NODE_PATH=${NODE_PATH}:./app_components/  supervisor --debug ./bin/www",
     "start": "NODE_PATH=${NODE_PATH}:./app_components/ node ./bin/www",
-    "initialize": "node ./migrations/initialize.js",
-    "clear": "node ./migrations/clear.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "initialize": "NODE_PATH=${NODE_PATH}:./app_components/ node ./migrations/initialize.js",
+    "clear": "NODE_PATH=${NODE_PATH}:./app_components/ node ./migrations/clear.js",
+    "test": "NODE_PATH=${NODE_PATH}:./app_components/ echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -39,6 +39,7 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "pg": "^4.5.2",
+    "postgrator": "^2.7.0",
     "recursive-readdir": "^2.0.0",
     "swig": "^1.4.2",
     "validator": "^5.2.0",

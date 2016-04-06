@@ -6,7 +6,9 @@ var queryManager = require('libs/queryManager').queryManager;
 
 
 class Locale {
-    constructor(options) {}
+    constructor(options) {
+			Object.assign(this, options)
+		}
 
     _insert(callback) {
         var own = this;
