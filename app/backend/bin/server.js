@@ -1,18 +1,15 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
-
 var app = require('../app');
 var debug = require('debug')('show:server');
 var http = require('http');
+
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '6000');
 app.set('port', port);
 
 /**
@@ -20,6 +17,19 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+var io = require('socket.io')(server);
+
+io.on('connection', function(socket){
+	console.log('a user connected');
+	socket.on('client:sendMessage', function(msg){
+		console.log('message: '+ msg.bla);
+	});
+	socket.on('disconnect', function(){
+		console.log('user disconnected');
+	});
+});
+
+console.log('io listen');
 
 /**
  * Listen on provided port, on all network interfaces.

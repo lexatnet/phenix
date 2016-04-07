@@ -4,8 +4,8 @@
   "description": "App for presentations sharing (backend)",
   "main": "index.js",
   "scripts": {
-    "debug": "NODE_PATH=${NODE_PATH}:./app_components/  supervisor --debug ./bin/www",
-    "start": "NODE_PATH=${NODE_PATH}:./app_components/ node ./bin/www",
+    "debug": "NODE_PATH=${NODE_PATH}:./app_components/  supervisor --debug ./bin/server.js",
+    "start": "NODE_PATH=${NODE_PATH}:./app_components/ node ./bin/server.js",
     "initialize": "NODE_PATH=${NODE_PATH}:./app_components/ node ./migrations/initialize.js",
     "clear": "NODE_PATH=${NODE_PATH}:./app_components/ node ./migrations/clear.js",
     "test": "NODE_PATH=${NODE_PATH}:./app_components/ echo \"Error: no test specified\" && exit 1"
@@ -41,6 +41,7 @@
     "pg": "^4.5.2",
     "postgrator": "^2.7.0",
     "recursive-readdir": "^2.0.0",
+    "socket.io": "^1.4.5",
     "swig": "^1.4.2",
     "validator": "^5.2.0",
     "winston": "^2.2.0"

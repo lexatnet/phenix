@@ -4,7 +4,7 @@
   "description": "App for presentations sharing (frontend)",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node ./bin/server.js",
     "test": "NODE_ENV=test mocha --recursive --compilers js:babel-core/register --require ./test/setup.js"
   },
   "repository": {
@@ -46,8 +46,10 @@
     "webpack-hot-middleware": "^2.10.0"
   },
   "dependencies": {
+    "app-root-path": "^1.0.0",
     "classnames": "^2.2.3",
     "cq-prolyfill": "^0.3.2",
+    "express-http-proxy": "^0.6.0",
     "node-sass": "^3.4.2",
     "react": "^0.14.8",
     "react-addons-css-transition-group": "^0.14.8",
@@ -58,6 +60,7 @@
     "redux": "^3.3.1",
     "redux-api-middleware": "^1.0.1",
     "redux-combine-actions": "^0.1.2",
-    "redux-form": "^4.2.2"
+    "redux-form": "^4.2.2",
+    "socket.io-client": "^1.4.5"
   }
 }
