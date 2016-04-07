@@ -12,17 +12,27 @@ var app = express();
 var port = 3000;
 
 var compiler = webpack(config);
-app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
+app.use(webpackDevMiddleware(compiler, {
+  noInfo: true,
+  publicPath: config.output.publicPath,
+}));
 app.use(webpackHotMiddleware(compiler));
 
 app.use('/img', express.static('img'));
 app.use('/font', express.static('font'));
 app.use('/meta', express.static('meta'));
 
+app.use('/api', proxy('localhost:6000', {
+  forwardPath: function (req, res) {
+    let path = req.originalUrl;
+    return path;
+  },
+}));
+
 app.use('/socket.io', proxy('localhost:6000', {
   forwardPath: function (req, res) {
     let path = req.originalUrl;
-		return path;
+    return path;
   },
 }));
 
@@ -35,8 +45,7 @@ app.listen(port, function (error) {
     console.error(error);
   } else {
     console.info('==> 🌎  Listening on port %s. Open up http://localhost:%s/ in your browser.',
-		port,
-		port)
-		;
+      port,
+      port);
   }
 });

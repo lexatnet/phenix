@@ -4,7 +4,6 @@ var app = require('../app');
 var debug = require('debug')('show:server');
 var http = require('http');
 
-
 /**
  * Get port from environment and store in Express.
  */
@@ -19,14 +18,15 @@ app.set('port', port);
 var server = http.createServer(app);
 var io = require('socket.io')(server);
 
-io.on('connection', function(socket){
-	console.log('a user connected');
-	socket.on('client:sendMessage', function(msg){
-		console.log('message: '+ msg.bla);
-	});
-	socket.on('disconnect', function(){
-		console.log('user disconnected');
-	});
+io.on('connection', function (socket) {
+  console.log('a user connected');
+  socket.on('client:sendMessage', function (msg) {
+    console.log('message: ' + msg.bla);
+  });
+
+  socket.on('disconnect', function () {
+    console.log('user disconnected');
+  });
 });
 
 console.log('io listen');
@@ -68,22 +68,20 @@ function onError(error) {
     throw error;
   }
 
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
-    default:
-      throw error;
+  case 'EACCES':
+    console.error(bind + ' requires elevated privileges');
+    process.exit(1);
+    break;
+  case 'EADDRINUSE':
+    console.error(bind + ' is already in use');
+    process.exit(1);
+    break;
+  default:
+    throw error;
   }
 }
 
@@ -93,8 +91,6 @@ function onError(error) {
 
 function onListening() {
   var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
+  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
