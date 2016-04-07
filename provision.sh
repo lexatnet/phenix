@@ -42,10 +42,15 @@ sudo apt-get install -y redis-server
 
 
 # build application
-cd app
+cd ~/app/backend
 npm install supervisor -g
 npm install -g node-inspector
 npm install
 npm run initialize
+# start application
+# npm start
+
+cd ~/app/backend
+npm install
 # start application
 # npm start

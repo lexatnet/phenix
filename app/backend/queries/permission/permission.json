@@ -1,0 +1,13 @@
+{
+  "permissionInsert": "permissionInsert.sql",
+  "permissionInfoInsert": "permissionInfoInsert.sql",
+  "permissionUpdate": "permissionUpdate.sql",
+  "permissionInfoUpdate": "permissionInfoUpdate.sql",
+  "permissionInfoByIdAndLocaleId": "permissionInfoByIdAndLocaleId.sql",
+  "permissionByLocaleIdAndName": "permissionByLocaleIdAndName.sql",
+  "permissionByLocaleId": "permissionByLocaleId.sql",
+  "permissionByUserIdAndLocaleId": "permissionByUserIdAndLocaleId.sql",
+  "permissionByRoleNameAndLocaleId": "permissionByRoleNameAndLocaleId.sql",
+  "permissionByRoleIdAndLocaleId": "permissionByRoleIdAndLocaleId.sql",
+  "permissionByIdAndLocaleId": "permissionByIdAndLocaleId.sql"
+}

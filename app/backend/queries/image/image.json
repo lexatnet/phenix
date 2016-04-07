@@ -1,0 +1,6 @@
+{
+  "imageInsert": "imageInsert.sql",
+  "imageUpdate": "imageUpdate.sql",
+  "imageList": "imageList.sql",
+  "imageById": "imageById.sql"
+}
