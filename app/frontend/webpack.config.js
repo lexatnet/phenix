@@ -1,12 +1,13 @@
 var path = require('path')
 var webpack = require('webpack')
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var appRoot = require('app-root-path');
 
 module.exports = {
     devtool: 'source-map',
     entry: [
         'webpack-hot-middleware/client',
-        './index'
+        appRoot + '/index'
     ],
     output: {
         path: path.join(__dirname, 'dist'),
@@ -17,7 +18,7 @@ module.exports = {
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
-				new ExtractTextPlugin("styles.css")
+        new ExtractTextPlugin("styles.css")
     ],
     module: {
         loaders: [{
@@ -27,11 +28,10 @@ module.exports = {
         }, {
             test: /\.scss$/,
             loader: ExtractTextPlugin.extract("style-loader", ['css-loader', 'postcss-loader', 'sass-loader?sourceMap'])
-        },{
+        }, {
             test: /\.json$/,
             loaders: ['json-loader']
-        }
-			]
+        }]
     },
     postcss: function() {
         return [
@@ -44,5 +44,8 @@ module.exports = {
             //container expressions
             require('cq-prolyfill/postcss-plugin')
         ];
+    },
+    watchOptions: {
+        poll: true
     }
 }
