@@ -1,0 +1,7 @@
+{
+  "localeInsert": "localeInsert.sql",
+  "localeUpdate": "localeUpdate.sql",
+  "localeList": "localeList.sql",
+  "localeById": "localeById.sql",
+  "localeByCode": "localeByCode.sql"
+}
