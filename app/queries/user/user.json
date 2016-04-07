@@ -1,9 +1,0 @@
-{
-  "userInsert": "userInsert.sql",
-  "userUpdate": "userUpdate.sql",
-  "userList": "userList.sql",
-  "userById": "userById.sql",
-  "userByLogin": "userByLogin.sql",
-  "userByEmail": "userByEmail.sql",
-  "userDeleteById": "userDeleteById.sql"
-}
