@@ -1,16 +1,16 @@
 import React, {Component, PropTypes} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import bem from '../../utility/BEM.js';
+import { routerActions } from 'react-router-redux';
+import {reduxForm} from 'redux-form';
+import bem from 'utility/BEM.js';
 import style from './style.scss';
 import styleMap from './style.scss.json';
-import {loginFormSubmit} from '../actions/form';
+import {loginFormSubmit} from 'actions/form';
 
 const b = bem('login-form');
 
-export const fields = ['login', 'password',];
-
-const b = bem('bg-share-via-email-form');
+export const fields = ['login', 'password', 'error'];
 
 const validate = values => {
   const errors = {};
@@ -28,13 +28,14 @@ const validate = values => {
       errors[field] = [fieldNamesMap[field], 'is required.'].join(' ');
     }
   }
+
   return errors;
 };
 
 export default class LoginForm extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render() {
@@ -44,6 +45,7 @@ export default class LoginForm extends Component {
       fields: {
 				login,
 				password,
+        error,
       },
       handleSubmit,
       submitting,
@@ -55,13 +57,13 @@ export default class LoginForm extends Component {
     const ePassword = b.e('password');
     return (
       <div className={b}>
-        <h4 className={b.e('title')}>{(success.value) || 'Share via e-mail'}</h4>
-        {(!success.value) && (
+        <h4 className={b.e('title')}>{'Login'}</h4>
+        {(true) && (
           <form onSubmit={handleSubmit}>
-            {error.value && <div className={b.e('errors')}>{error.value}</div>}
+            {/*{error.value && <div className={b.e('errors')}>{error.value}</div>}*/}
             <div className={field}>
               <label className={fieldLabel} for={eLogin}>{'Login'}</label>
-              {to.touched && to.error && <div className={b.e('errors')}>{to.error}</div>}
+            {eLogin.touched && eLogin.error && <div className={b.e('errors')}>{eLogin.error}</div>}
               <input
                 className={eLogin}
                 type={'text'}
@@ -73,13 +75,13 @@ export default class LoginForm extends Component {
             </div>
             <div className={field}>
               <label className={fieldLabel} for={ePassword}>{'Password'}</label>
-              {from.touched && from.error && <div className={b.e('errors')}>{from.error}</div>}
+            {ePassword.touched && ePassword.error && <div className={b.e('errors')}>{ePassword.error}</div>}
               <input
                 className={ePassword}
                 type="password"
                 name={ePassword}
                 id={ePassword}
-                {...from}
+                {...ePassword}
               />
             </div>
             <input className={b.e('submit')} type="submit" value={'Send'} disabled={submitting}/>
@@ -120,4 +122,4 @@ export default reduxForm(
   },
   mapStateToProps,
   mapDispatchToProps
-)(BGShareViaEmailForm);
+)(LoginForm);

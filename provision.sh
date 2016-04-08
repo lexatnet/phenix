@@ -3,6 +3,9 @@
 # install utils
 sudo apt-get install -y git-core curl
 sudo apt-get install -y software-properties-common python-software-properties
+sudo apt-get install -y g++
+sudo apt-get install -y htop
+sudo apt-get install -y mc
 
 # add postgresql repository
 sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'

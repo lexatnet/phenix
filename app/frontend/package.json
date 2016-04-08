@@ -4,7 +4,8 @@
   "description": "App for presentations sharing (frontend)",
   "main": "server.js",
   "scripts": {
-    "start": "node ./bin/server.js",
+    "debug": "NODE_PATH=${NODE_PATH}:./app_components/  supervisor --debug=3001 ./bin/server.js",
+    "start": "NODE_PATH=${NODE_PATH}:./app_components/ node ./bin/server.js",
     "test": "NODE_ENV=test mocha --recursive --compilers js:babel-core/register --require ./test/setup.js"
   },
   "repository": {

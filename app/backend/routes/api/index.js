@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   res.render('index', {
-    title: 'Express'
+    title: 'Express',
   });
 });
 
@@ -13,4 +13,4 @@ router.use('/user', require('./user/index').routes);
 router.use('/image', require('./image/index').routes);
 router.use('/administration', require('./administration/index').routes);
 
-module.exports = router;
+exports.routes = router;

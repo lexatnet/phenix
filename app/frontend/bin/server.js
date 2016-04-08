@@ -1,7 +1,5 @@
 'use strict';
 var webpack = require('webpack');
-var webpackDevMiddleware = require('webpack-dev-middleware');
-var webpackHotMiddleware = require('webpack-hot-middleware');
 var appRoot = require('app-root-path');
 var config = require(appRoot + '/webpack.config');
 var express = require('express');
@@ -12,11 +10,12 @@ var app = express();
 var port = 3000;
 
 var compiler = webpack(config);
-app.use(webpackDevMiddleware(compiler, {
+
+app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
   publicPath: config.output.publicPath,
 }));
-app.use(webpackHotMiddleware(compiler));
+app.use(require('webpack-hot-middleware')(compiler));
 
 app.use('/img', express.static('img'));
 app.use('/font', express.static('font'));
@@ -24,19 +23,26 @@ app.use('/meta', express.static('meta'));
 
 app.use('/api', proxy('localhost:6000', {
   forwardPath: function (req, res) {
+    console.log('call API');
     let path = req.originalUrl;
     return path;
   },
 }));
 
-app.use('/socket.io', proxy('localhost:6000', {
+app.use('/app', proxy('localhost:6000', {
   forwardPath: function (req, res) {
-    let path = req.originalUrl;
+    console.log('call Socket.io');
+    console.log('req.url', req.url);
+
+    // let path = req.originalUrl;
+    let path = url.parse(req.url).path;
+
     return path;
   },
 }));
 
-app.get('/', function (req, res) {
+app.get('/*', function (req, res) {
+  console.log('call application');
   res.sendFile(appRoot + '/index.html');
 });
 
