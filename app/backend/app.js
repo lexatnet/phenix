@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var config = require('config');
 var session = require('express-session');
-var i18n = require("i18n");
+var i18n = require('i18n');
 var swig = require('swig');
 
 var PosgresSessionStore = require('libs/postgresSessionStore')(session);

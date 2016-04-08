@@ -4,7 +4,7 @@
   "description": "App for presentations sharing (backend)",
   "main": "index.js",
   "scripts": {
-    "debug": "NODE_PATH=${NODE_PATH}:./app_components/  supervisor --debug ./bin/server.js",
+    "debug": "NODE_PATH=${NODE_PATH}:./app_components/  supervisor --debug=6001 ./bin/server.js",
     "start": "NODE_PATH=${NODE_PATH}:./app_components/ node ./bin/server.js",
     "initialize": "NODE_PATH=${NODE_PATH}:./app_components/ node ./migrations/initialize.js",
     "clear": "NODE_PATH=${NODE_PATH}:./app_components/ node ./migrations/clear.js",

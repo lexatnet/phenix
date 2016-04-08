@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { routerActions } from 'react-router-redux';
 import io from 'socket.io-client';
-let socket = io();
+let socket = io('http://localhost:3000', { path:'/app/socket.io' });
 
 class App extends Component {
 
