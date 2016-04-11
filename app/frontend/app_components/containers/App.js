@@ -5,6 +5,8 @@ import classnames from 'classnames';
 import { routerActions } from 'react-router-redux';
 import io from 'socket.io-client';
 let socket = io('http://localhost:3000', { path:'/app/socket.io' });
+import { getCSRFToken } from 'actions/api'
+
 
 class App extends Component {
 
@@ -17,8 +19,8 @@ class App extends Component {
     const classes = classnames('show');
 
     const CHILD_FROM_ROUTE = React.Children.map(
-			this.props.children,
-			child => React.cloneElement(child, { ...this.props }, child.props.children)
+      this.props.children,
+      child => React.cloneElement(child, { ...this.props }, child.props.children)
     );
 
     return (
@@ -32,6 +34,7 @@ class App extends Component {
 
   componentDidMount() {
     console.log(this.constructor.name, 'componentDidMount()');
+    this.props.getCSRFToken();
     socket.emit('client:sendMessage', { bla: 'bla' });
   }
 }
@@ -48,7 +51,9 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(Object.assign({ }, routerActions), dispatch);
+  return bindActionCreators(Object.assign({
+    getCSRFToken
+  }, routerActions), dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

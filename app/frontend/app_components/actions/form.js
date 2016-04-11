@@ -1,11 +1,13 @@
 import {
-  login
+  login as loginRequest
 } from './api';
 
-export default function loginFormSubmit(data) {
+export function loginFormSubmit(data) {
+  console.log('loginFormSubmit()', data);
   const {
+    csrf,
     login,
     password,
   } = data;
-  return shareViaEmail(login, password);
+  return loginRequest(csrf, login, password);
 }

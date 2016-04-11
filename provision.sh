@@ -53,7 +53,7 @@ npm run initialize
 # start application
 # npm start
 
-cd ~/app/backend
+cd ~/app/frontend
 npm install
 # start application
 # npm start

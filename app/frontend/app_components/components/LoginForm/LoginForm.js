@@ -10,14 +10,14 @@ import {loginFormSubmit} from 'actions/form';
 
 const b = bem('login-form');
 
-export const fields = ['login', 'password', 'error'];
+export const fields = ['csrf', 'login', 'password', 'error'];
 
 const validate = values => {
   const errors = {};
 
   const fieldNamesMap = {
-    from: 'Login',
-    to: 'Password',
+    login: 'Login',
+    password: 'Password',
   };
 
   // Required validation
@@ -43,8 +43,9 @@ export default class LoginForm extends Component {
 
     const {
       fields: {
-				login,
-				password,
+        csrf,
+        login,
+        password,
         error,
       },
       handleSubmit,
@@ -53,6 +54,7 @@ export default class LoginForm extends Component {
 
     const field = b.e('field');
     const fieldLabel = b.e('field-label');
+    const eCSRF = b.e('csrf');
     const eLogin = b.e('login');
     const ePassword = b.e('password');
     return (
@@ -61,6 +63,13 @@ export default class LoginForm extends Component {
         {(true) && (
           <form onSubmit={handleSubmit}>
             {/*{error.value && <div className={b.e('errors')}>{error.value}</div>}*/}
+            <input
+              className={eCSRF}
+              type={'hidden'}
+              name={eCSRF}
+              id={eCSRF}
+              {...csrf}
+              />
             <div className={field}>
               <label className={fieldLabel} for={eLogin}>{'Login'}</label>
             {eLogin.touched && eLogin.error && <div className={b.e('errors')}>{eLogin.error}</div>}
@@ -81,7 +90,7 @@ export default class LoginForm extends Component {
                 type="password"
                 name={ePassword}
                 id={ePassword}
-                {...ePassword}
+                {...password}
               />
             </div>
             <input className={b.e('submit')} type="submit" value={'Send'} disabled={submitting}/>
@@ -116,7 +125,7 @@ function mapDispatchToProps(dispatch, ownProps) {
 
 export default reduxForm(
   {
-    form: 'shareViaEmailForm',
+    form: 'login',
     fields,
     validate,
   },
