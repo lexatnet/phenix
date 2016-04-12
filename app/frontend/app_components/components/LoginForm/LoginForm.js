@@ -84,7 +84,11 @@ export default class LoginForm extends Component {
             </div>
             <div className={field}>
               <label className={fieldLabel} for={ePassword}>{'Password'}</label>
-            {ePassword.touched && ePassword.error && <div className={b.e('errors')}>{ePassword.error}</div>}
+                {
+                  ePassword.touched
+                  && ePassword.error
+                  && <div className={b.e('errors')}>{ePassword.error}</div>
+                }
               <input
                 className={ePassword}
                 type="password"
