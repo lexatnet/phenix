@@ -21,6 +21,7 @@ export function login(csrf, login, password) {
         // 'Content-Type': 'multipart/form-data;boundary=',
       },
       body: formData,
+      credentials:'same-origin',
     },
   };
 }
@@ -35,6 +36,7 @@ export function getCSRFToken() {
       endpoint: '/api/csrf-token',
       method: 'GET',
       types: [CSRF_TOKEN_REQUEST, CSRF_TOKEN_SUCCESS, CSRF_TOKEN_FAILURE],
+      credentials:'same-origin',
     },
   };
 }
