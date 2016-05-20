@@ -7,9 +7,8 @@ import {Router, Route, browserHistory, IndexRoute} from 'react-router';
 import {syncHistoryWithStore} from 'react-router-redux';
 import configureStore from 'store/configureStore';
 import DevTools from 'containers/DevTools';
-import Test from 'components/test/Test';
 import LoginPage from 'components/LoginPage/LoginPage.js';
-import Test0 from 'components/test0/Test';
+import HomePage from 'components/HomePage/HomePage.js';
 
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
@@ -19,11 +18,10 @@ render(
   <div>
     <Router history={history}>
       <Route path="/" component={App}>
+        <IndexRoute component={HomePage}/>
         <Route path="/login" component={LoginPage}/>
       </Route>
     </Router>
-    <Test/>
-    <Test0/>
 
     <div className='redux-dev-tools'>
       <DevTools/>

@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import bem from 'utility/BEM.js';
 import style from './style.scss';
 import styleMap from './style.scss.json';
+import MainMenu from 'components/MainMenu/MainMenu.js';
 
-const b = bem('main-menu');
+const b = bem('page');
 
-export default class MainMenu extends Component {
+export default class Page extends Component {
 
   constructor(props) {
     super(props);
@@ -18,12 +19,15 @@ export default class MainMenu extends Component {
 
     return (
       <div
-        className={styleMap[b]}
-        >
-				MainMenu()
+				className={styleMap[b]}
+			>
+        <div className={styleMap[b.e('main-menu')]}>
+          <MainMenu />
+        </div>
+        {this.props.children}
 			</div>
     );
   }
 }
 
-MainMenu.propTypes = {};
+Page.propTypes = {};

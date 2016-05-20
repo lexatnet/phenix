@@ -1,15 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import bem from '../../utility/BEM.js';
+import bem from 'utility/BEM.js';
 import style from './style.scss';
 import styleMap from './style.scss.json';
-import LoginForm from '../LoginForm/LoginForm';
-import Page from '../Page/Page';
+import Page from 'components/Page/Page';
 
-const b = bem('login-page');
+const b = bem('home-page');
 
-export default class LoginPage extends Component {
+export default class HomePage extends Component {
 
   constructor(props) {
     super(props);
@@ -24,7 +23,7 @@ export default class LoginPage extends Component {
           className={styleMap[b]}
           >
           <div className={styleMap[b.e('login-form')]}>
-            <LoginForm />
+            Home
           </div>
         </div>
       </Page>
@@ -32,4 +31,4 @@ export default class LoginPage extends Component {
   }
 }
 
-LoginPage.propTypes = {};
+HomePage.propTypes = {};
