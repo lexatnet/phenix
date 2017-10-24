@@ -15,54 +15,73 @@ module.exports = {
     publicPath: '/static/',
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true
+    }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new ExtractTextPlugin('styles.css'),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new ExtractTextPlugin({
+      filename: 'styles.css'
+    }),
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
-        loaders: ['babel-loader'],
-        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['env'],
+            plugins: [require('babel-plugin-transform-object-rest-spread')]
+          }
+        },
+        exclude: /(node_modules|bower_components)/,
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract(
-          'style-loader',
-          [
-            'css-loader',
-            'postcss-loader',
-            'sass-loader?sourceMap',
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader:'css-loader',
+              options: {
+                sourceMap: true
+              }
+            }, {
+              loader: 'postcss-loader',
+              options: {
+                ident: 'postcss',
+                plugins: (loader) => [
+
+                  //selectors isolation
+                  require('postcss-modules'),
+                  require('postcss-bem-linter'),
+
+                  // local reset
+                  require('postcss-autoreset'),
+                  require('postcss-cssnext'),
+
+                  //container expressions
+                  require('cq-prolyfill/postcss-plugin'),
+                ],
+                sourceMap: true
+              }
+            }, {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true
+              }
+            }
           ]
-        ),
-      },
-      {
-        test: /\.json$/,
-        loaders: ['json-loader'],
-      },
+        }),
+      }
     ],
-  },
-  postcss: function () {
-    return [
-
-      //selectors isolation
-      require('postcss-modules'),
-      require('postcss-bem-linter'),
-
-      // local reset
-      require('postcss-autoreset'),
-      require('postcss-cssnext'),
-
-      //container expressions
-      require('cq-prolyfill/postcss-plugin'),
-    ];
   },
 
   resolve: {
-    root: [
+    modules: [
       path.resolve('./app_components/'),
+      'node_modules'
     ],
   },
 

@@ -1,5 +1,5 @@
 var async = require('async');
-var lwip = require('lwip');
+var sharp = require('sharp');
 var appRoot = require('app-root-path');
 var reqlib = require('app-root-path').require;
 var fs = require('fs-extra');
@@ -20,7 +20,7 @@ ImageStyleManager.prototype.createImageSytleFile = function(image, styleName,
   var fileName = own.getStylePath(image, styleName);
   async.waterfall([
       function(callback) {
-        lwip.open(image.path, callback);
+        sharp.open(image.path, callback);
       },
       function(image, callback) {
         style(image, styleName, callback);

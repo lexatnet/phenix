@@ -1,3 +1,24 @@
 {
-  "presets": ["es2015","react","stage-2"]
+  "presets": [
+    "react",
+    [
+      "env",
+      {
+        "targets": {
+          browsers: [
+            "last 2 versions",
+            "> 2%"
+          ]
+      },
+      "debug": true
+    }]
+  ],
+  "plugins": [
+    [
+      "transform-object-rest-spread",
+      {
+        "useBuiltIns": true
+      }
+    ]
+  ]
 }

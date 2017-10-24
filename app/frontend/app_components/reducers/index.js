@@ -15,6 +15,8 @@ const rootReducer = combineReducers(
       form: formReducer.plugin({
         login
       })
-    }));
+    }
+  )
+);
 
 export default rootReducer

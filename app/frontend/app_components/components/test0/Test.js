@@ -19,10 +19,10 @@ export default class Test extends Component {
 
     return (
       <div
-				className={styleMap[b]}
-			>
-				Test
-			</div>
+      className={styleMap[b]}
+	>
+	Test
+      </div>
     );
   }
 }

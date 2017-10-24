@@ -15,10 +15,10 @@ const enhancer = compose(
 
   // Middleware you want to use in development:
   applyMiddleware(
-      thunk,
-			combineActionsMiddleware,
-      apiMiddleware,
-      reduxRouterMiddleware
+    thunk,
+    combineActionsMiddleware,
+    apiMiddleware,
+    reduxRouterMiddleware
   ),
 
   // Required! Enable Redux DevTools with the monitors you chose
