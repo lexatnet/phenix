@@ -1,0 +1,58 @@
+version: "3"
+
+volumes:
+  volume-db:
+
+services:
+  redis:
+    image: redis:alpine
+
+
+  db:
+    image: postgres:latest
+    volumes:
+      - volume-db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: app
+
+
+  mock-server:
+    image: node:latest
+    working_dir: /app
+    ports:
+      - "6001:6001"
+    volumes:
+      - ../../app/mock-server:/app
+    command: ['npm', 'start', '--', '--port', '6001']
+
+
+  backend:
+    image: node:6
+    working_dir: /app
+    ports:
+      - "6000:6000"
+    volumes:
+      - ../../app/backend:/app
+    links:
+      - redis
+      - db
+    depends_on:
+      - db
+      - redis
+    command: ['npm', 'start']
+
+
+  frontend:
+    image: node:latest
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../../app/frontend:/app
+    links:
+      - backend
+    depends_on:
+      - backend
+    command: ['npm', 'start']
+

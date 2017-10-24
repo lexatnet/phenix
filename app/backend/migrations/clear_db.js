@@ -5,7 +5,7 @@ var logger = require('libs/log')(module);
 function clear_db(cb) {
 
   postgrator.setConfig({
-    migrationDirectory: __dirname,
+    migrationDirectory: `${__dirname}/steps`,
     driver: 'pg', // or pg.js, mysql, mssql, tedious
     host: config.get('db.host'),
     port: config.get('db.port'),

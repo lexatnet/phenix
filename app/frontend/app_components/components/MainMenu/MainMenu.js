@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { NavLink } from 'react-router-dom'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import bem from 'utility/BEM.js';
@@ -18,10 +19,10 @@ export default class MainMenu extends Component {
 
     return (
       <div
-        className={styleMap[b]}
+      className={styleMap[b]}
         >
-				MainMenu()
-			</div>
+	<NavLink to="/login">login</NavLink>
+      </div>
     );
   }
 }
