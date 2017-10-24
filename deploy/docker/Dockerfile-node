@@ -1,0 +1,31 @@
+FROM ubuntu:16.04
+
+ARG nvm_root=/opt/nvm
+
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+RUN apt-get update && apt-get install -y -q \
+        curl \
+        git \
+        make \
+        g++ \
+        python \
+        mc && \
+    rm -rf /var/lib/apt/lists/*
+
+
+# Install nvm
+RUN git clone https://github.com/creationix/nvm.git ${nvm_root} && \
+    cd ${nvm_root} && \
+    git checkout `git describe --abbrev=0 --tags origin`
+
+
+# Add nvm.sh to .bashrc for startup...
+RUN echo "source ${nvm_root}/nvm.sh" > $HOME/.bashrc && \
+    source $HOME/.bashrc
+
+
+# Install default version of Node.js
+RUN source ${nvm_root}/nvm.sh && \
+    nvm ls-remote && \
+    nvm install --lts

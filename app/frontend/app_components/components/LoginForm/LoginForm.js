@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import { routerActions } from 'react-router-redux';
@@ -32,7 +33,7 @@ const validate = values => {
   return errors;
 };
 
-export default class LoginForm extends Component {
+export class LoginForm extends Component {
 
   constructor(props) {
     super(props);

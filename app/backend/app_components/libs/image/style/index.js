@@ -1,5 +1,4 @@
 var async = require('async');
-var lwip = require('lwip');
 
 var logger = require('libs/log')(module);
 

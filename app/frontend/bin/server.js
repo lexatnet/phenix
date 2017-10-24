@@ -21,7 +21,7 @@ app.use('/img', express.static('img'));
 app.use('/font', express.static('font'));
 app.use('/meta', express.static('meta'));
 
-app.use('/api', proxy('localhost:6000', {
+app.use('/api', proxy('backend:6000', {
   forwardPath: function (req, res) {
     console.log('call API');
     let path = req.originalUrl;
@@ -29,7 +29,7 @@ app.use('/api', proxy('localhost:6000', {
   },
 }));
 
-app.use('/app', proxy('localhost:6000', {
+app.use('/app', proxy('backend:6000', {
   forwardPath: function (req, res) {
     console.log('call Socket.io');
     console.log('req.url', req.url);

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
@@ -15,11 +16,16 @@ class App extends Component {
 
   render() {
     const {} = this.props;
-    const classes = classnames('show');
+    const classes = classnames('app');
 
     const CHILD_FROM_ROUTE = React.Children.map(
       this.props.children,
-      child => React.cloneElement(child, { ...this.props }, child.props.children)
+      child => React.cloneElement(
+        child,
+        {
+          ...this.props
+        },
+        child.props.children)
     );
 
     return (
@@ -39,11 +45,11 @@ class App extends Component {
 }
 
 App.propTypes = {
-  user:PropTypes.object.isRequired,
+  user:PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
-  let team =  ownProps.params.team || state.team;
+  //let team =  ownProps.params.team || state.team;
   return {
     user:  state.user,
   };

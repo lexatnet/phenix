@@ -19,13 +19,15 @@ export default class Page extends Component {
 
     return (
       <div
-				className={styleMap[b]}
-			>
-        <div className={styleMap[b.e('main-menu')]}>
+        className={styleMap[b]}
+        >
+        <div
+          className={styleMap[b.e('main-menu')]}
+          >
           <MainMenu />
         </div>
         {this.props.children}
-			</div>
+      </div>
     );
   }
 }
