@@ -1,9 +1,13 @@
 Local Depoyment
 
-      ```
-      make init
-      make deps-install
-      ```
+requirements:
+        - docker-compose
+
+steps:
+        ```
+        make init
+        make deps-install
+        ```
 
 Run local
     ```
@@ -11,12 +15,11 @@ Run local
     ```
 
 requirements:
-
-	- vagrant
+        - vagrant
 
 Go to project root
 
-	run
-	```
-	vagrant up
-	```
+   run
+   ```
+   vagrant up
+   ```
