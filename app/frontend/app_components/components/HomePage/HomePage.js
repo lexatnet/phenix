@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import bem from 'utility/BEM.js';
@@ -15,16 +16,12 @@ export default class HomePage extends Component {
   }
 
   render() {
-    console.log(this.constructor.name, 'render()', this.props, style);
-
     return (
       <Page>
         <div
           className={styleMap[b]}
           >
-          <div className={styleMap[b.e('login-form')]}>
-            Home
-          </div>
+          Home
         </div>
       </Page>
     );
