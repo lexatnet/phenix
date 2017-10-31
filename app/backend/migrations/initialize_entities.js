@@ -207,6 +207,4 @@ function initialize_entities(cb) {
 
 }
 
-
-
 module.exports.initialize_entities = initialize_entities;

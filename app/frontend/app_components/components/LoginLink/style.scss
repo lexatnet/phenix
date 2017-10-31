@@ -1,8 +1,7 @@
-$module-name:'home-page';
-
+$module-name: 'login-link';
 // ------------------------------------------------------------
 // Default Styles
 // ------------------------------------------------------------
-.#{$module-name}{
-    width: 100%;
+.#{$module-name} {
+    color: red;
 }

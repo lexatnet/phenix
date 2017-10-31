@@ -3,7 +3,6 @@ import {
 } from './api';
 
 export function loginFormSubmit(data) {
-  console.log('loginFormSubmit()', data);
   const {
     csrf,
     login,

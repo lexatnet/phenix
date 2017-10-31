@@ -5,23 +5,32 @@ var appRoot = require('app-root-path');
 
 module.exports = {
   devtool: 'source-map',
-  entry: [
-    'webpack-hot-middleware/client',
-    appRoot + '/app',
-  ],
+  entry: {
+    app: [
+      'webpack-hot-middleware/client',
+      appRoot + '/app',
+    ],
+    vendor: appRoot + '/vendor',
+  },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: '[name]-bundle.js',
     publicPath: '/static/',
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jquery: 'jQuery',
+      'windows.jQuery': 'jquery',
+      Popper: ['popper.js', 'default']
+    }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new ExtractTextPlugin({
-      filename: 'styles.css'
+      filename: '[name]-bundle.css'
     }),
   ],
   module: {
@@ -36,6 +45,19 @@ module.exports = {
           }
         },
         exclude: /(node_modules|bower_components)/,
+      },
+      // Extract css files
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: {
+            loader:'css-loader',
+            options: {
+              sourceMap: true
+            }
+          }
+        })
       },
       {
         test: /\.scss$/,

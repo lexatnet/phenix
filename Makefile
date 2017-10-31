@@ -21,3 +21,11 @@ clean:
 	docker volume rm volume-db
 	docker-compose --file $(DOCKER_COMPOSE_FILE) stop
 	docker-compose --file $(DOCKER_COMPOSE_FILE) rm
+
+frontend-eslint:
+	docker-compose --file $(DOCKER_COMPOSE_FILE) run --rm frontend npm run eslint
+
+backend-eslint:
+	docker-compose --file $(DOCKER_COMPOSE_FILE) run --rm backend npm run eslint
+
+eslint: backend-eslint frontend-eslint

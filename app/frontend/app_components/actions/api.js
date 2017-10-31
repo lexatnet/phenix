@@ -1,5 +1,5 @@
 import {
-  CALL_API
+  RSAA
 } from 'redux-api-middleware';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
@@ -12,7 +12,7 @@ export function login(csrf, login, password) {
   formData.append('login', login);
   formData.append('password', password);
   return {
-    [CALL_API]: {
+    [RSAA]: {
       endpoint: '/api/user/login',
       method: 'POST',
       types: [LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE],
@@ -32,7 +32,7 @@ export const CSRF_TOKEN_FAILURE = 'CSRF_TOKEN_FAILURE';
 
 export function getCSRFToken() {
   return {
-    [CALL_API]: {
+    [RSAA]: {
       endpoint: '/api/csrf-token',
       method: 'GET',
       types: [CSRF_TOKEN_REQUEST, CSRF_TOKEN_SUCCESS, CSRF_TOKEN_FAILURE],

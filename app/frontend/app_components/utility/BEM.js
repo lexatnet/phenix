@@ -50,57 +50,63 @@
  */
 
 class Named{
-	constructor(name){
-		this.name = name
-	}
-	toString(){
-		return this.name;
-	}
+
+  constructor(name){
+    this.name = name
+  }
+
+  toString(){
+    return this.name;
+  }
 }
 
 class Value extends Named {
-	constructor(name){
-		super(name)
-	}
+
+  constructor(name){
+    super(name)
+  }
 }
 
 class Modificator extends Named{
-	constructor(name){
-		super(name)
-	}
 
-	v(value){
-		return new Value([this, '--', value].join(''))
-	}
+  constructor(name){
+    super(name)
+  }
+
+  v(value){
+    return new Value([this, '--', value].join(''))
+  }
 }
 
 class Element extends Named{
-	constructor(name){
-		super(name)
-	}
 
-	m(modificatorName){
-		return new Modificator([this, '--', modificatorName].join(''))
-	}
+  constructor(name){
+    super(name)
+  }
+
+  m(modificatorName){
+    return new Modificator([this, '--', modificatorName].join(''))
+  }
 }
 
 
 
 class Block extends Named{
-	constructor(blockName){
-		super(blockName)
-	}
 
-	e(elementName){
-		return new Element([this, '__', elementName].join(''))
-	}
+  constructor(blockName){
+    super(blockName)
+  }
 
-	m(modificatorName){
-		return new Modificator([this, '--', modificatorName].join(''))
-	}
+  e(elementName){
+    return new Element([this, '__', elementName].join(''))
+  }
+
+  m(modificatorName){
+    return new Modificator([this, '--', modificatorName].join(''))
+  }
 
 }
 
 export default function b(blockName){
-	return new Block(blockName)
+  return new Block(blockName)
 }

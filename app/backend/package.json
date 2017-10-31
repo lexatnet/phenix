@@ -8,7 +8,8 @@
     "start": "NODE_PATH=${NODE_PATH}:./app_components/ node ./bin/server.js",
     "initialize": "NODE_PATH=${NODE_PATH}:./app_components/ node ./migrations/initialize.js",
     "clear": "NODE_PATH=${NODE_PATH}:./app_components/ node ./migrations/clear.js",
-    "test": "NODE_PATH=${NODE_PATH}:./app_components/ echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_PATH=${NODE_PATH}:./app_components/ echo \"Error: no test specified\" && exit 1",
+    "eslint": "node ./node_modules/eslint/bin/eslint.js ./"
   },
   "repository": {
     "type": "git",

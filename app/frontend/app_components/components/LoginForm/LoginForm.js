@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import { routerActions } from 'react-router-redux';
-import {reduxForm} from 'redux-form';
+import {Field, reduxForm} from 'redux-form';
 import bem from 'utility/BEM.js';
 import style from './style.scss';
 import styleMap from './style.scss.json';
@@ -13,18 +13,19 @@ const b = bem('login-form');
 
 export const fields = ['csrf', 'login', 'password', 'error'];
 
-const validate = values => {
+const validate = (values) => {
   const errors = {};
 
   const fieldNamesMap = {
     login: 'Login',
-    password: 'Password',
+    password: 'Password'
   };
 
   // Required validation
-  for (let field of['login',
+  for (let field of [
+    'login',
     'password',
-    ]) {
+  ]) {
     if (!values[field]) {
       errors[field] = [fieldNamesMap[field], 'is required.'].join(' ');
     }
@@ -40,17 +41,15 @@ export class LoginForm extends Component {
   }
 
   render() {
-    console.log(this.constructor.name, 'render()', this.props, style);
-
     const {
       fields: {
         csrf,
         login,
         password,
-        error,
+        error
       },
       handleSubmit,
-      submitting,
+      submitting
     } = this.props;
 
     const field = b.e('field');
@@ -64,7 +63,8 @@ export class LoginForm extends Component {
         {(true) && (
           <form onSubmit={handleSubmit}>
             {/*{error.value && <div className={b.e('errors')}>{error.value}</div>}*/}
-            <input
+            <Field
+              component="input"
               className={eCSRF}
               type={'hidden'}
               name={eCSRF}
@@ -72,33 +72,34 @@ export class LoginForm extends Component {
               {...csrf}
               />
             <div className={field}>
-              <label className={fieldLabel} for={eLogin}>{'Login'}</label>
-            {eLogin.touched && eLogin.error && <div className={b.e('errors')}>{eLogin.error}</div>}
-              <input
+              <label className={fieldLabel} htmlFor={eLogin}>{'Login'}</label>
+              {eLogin.touched && eLogin.error && <div className={b.e('errors')}>{eLogin.error}</div>}
+              <Field
+                component="input"
                 className={eLogin}
                 type={'text'}
                 name={eLogin}
                 id={eLogin}
                 placeholder={'login'}
-                {...login}
-                />
+                {...login}/>
             </div>
             <div className={field}>
-              <label className={fieldLabel} for={ePassword}>{'Password'}</label>
-                {
-                  ePassword.touched
-                  && ePassword.error
-                  && <div className={b.e('errors')}>{ePassword.error}</div>
-                }
-              <input
+              <label className={fieldLabel} htmlFor={ePassword}>{'Password'}</label>
+              {ePassword.touched && ePassword.error && <div className={b.e('errors')}>{ePassword.error}</div>}
+              <Field
+                component="input"
                 className={ePassword}
                 type="password"
                 name={ePassword}
                 id={ePassword}
-                {...password}
-              />
+                {...password}/>
             </div>
-            <input className={b.e('submit')} type="submit" value={'Send'} disabled={submitting}/>
+            <button
+              className={b.e('submit')}
+              type="submit"
+              disabled={submitting}>
+            {'Submit'}
+            </button>
           </form>
         )}
       </div>
@@ -118,22 +119,23 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return bindActionCreators(
-    Object.assign(
-      {
-        onSubmit: loginFormSubmit,
-      },
-      routerActions
-    ),
+    {
+      handleSubmit: loginFormSubmit,
+      ...routerActions
+    },
     dispatch
   );
 }
+
+const connectedLoginForm = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginForm);
 
 export default reduxForm(
   {
     form: 'login',
     fields,
     validate,
-  },
-  mapStateToProps,
-  mapDispatchToProps
-)(LoginForm);
+  }
+)(connectedLoginForm);
