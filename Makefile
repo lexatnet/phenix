@@ -5,6 +5,9 @@ init:
 
 deps-install: backend-deps-install frontend-deps-install mock-server-deps-install
 
+db-initialize:
+	docker-compose --file $(DOCKER_COMPOSE_FILE) run --rm backend npm run initialize
+
 backend-deps-install:
 	docker-compose --file $(DOCKER_COMPOSE_FILE) run --rm backend npm install
 
@@ -27,5 +30,17 @@ frontend-eslint:
 
 backend-eslint:
 	docker-compose --file $(DOCKER_COMPOSE_FILE) run --rm backend npm run eslint
+
+connect-frontend:
+	docker-compose --file $(DOCKER_COMPOSE_FILE) exec frontend bash
+
+connect-backend:
+	docker-compose --file $(DOCKER_COMPOSE_FILE) exec backend bash
+
+connect-mock-server:
+	docker-compose --file $(DOCKER_COMPOSE_FILE) exec mock-server bash
+
+connect-db:
+	docker-compose --file $(DOCKER_COMPOSE_FILE) exec db bash
 
 eslint: backend-eslint frontend-eslint

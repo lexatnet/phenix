@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import { routerActions } from 'react-router-redux';
 import {Field, reduxForm} from 'redux-form';
+import {get} from 'lodash';
 import bem from 'utility/BEM.js';
 import style from './style.scss';
 import styleMap from './style.scss.json';
@@ -49,6 +50,7 @@ export class LoginForm extends Component {
         error
       },
       handleSubmit,
+      onSubmit,
       submitting
     } = this.props;
 
@@ -61,15 +63,15 @@ export class LoginForm extends Component {
       <div className={b}>
         <h4 className={b.e('title')}>{'Login'}</h4>
         {(true) && (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             {/*{error.value && <div className={b.e('errors')}>{error.value}</div>}*/}
             <Field
               component="input"
               className={eCSRF}
               type={'hidden'}
-              name={eCSRF}
+              name={'csrf'}
               id={eCSRF}
-              {...csrf}
+              value={csrf.value}
               />
             <div className={field}>
               <label className={fieldLabel} htmlFor={eLogin}>{'Login'}</label>
@@ -78,7 +80,7 @@ export class LoginForm extends Component {
                 component="input"
                 className={eLogin}
                 type={'text'}
-                name={eLogin}
+                name={'login'}
                 id={eLogin}
                 placeholder={'login'}
                 {...login}/>
@@ -90,7 +92,7 @@ export class LoginForm extends Component {
                 component="input"
                 className={ePassword}
                 type="password"
-                name={ePassword}
+                name={'password'}
                 id={ePassword}
                 {...password}/>
             </div>
@@ -109,18 +111,24 @@ export class LoginForm extends Component {
 
 LoginForm.propTypes = {
   fields: PropTypes.object.isRequired, // TODO: Specify structure
-  handleSubmit: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  submitting: PropTypes.bool.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
-  return {};
+  return {
+    fields: {
+      csrf: {
+        value: get(state, 'form.login.csrf.value')
+      }
+    }
+  };
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
   return bindActionCreators(
     {
-      handleSubmit: loginFormSubmit,
+      onSubmit: loginFormSubmit,
       ...routerActions
     },
     dispatch

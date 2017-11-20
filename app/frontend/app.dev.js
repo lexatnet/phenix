@@ -15,7 +15,7 @@ const history = createHistory();
 
 render(
   <Provider store={store}>
-    <div>
+    <App>
       { /* ConnectedRouter will use the store from Provider automatically */ }
       <ConnectedRouter history={history}>
         <div>
@@ -28,7 +28,7 @@ render(
         <DevTools/>
       </div>
 
-    </div>
+    </App>
   </Provider>,
   document.getElementById('root')
 );

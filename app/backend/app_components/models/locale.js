@@ -1,8 +1,9 @@
-'use strict'
-var util = require('util');
-var async = require('async');
-var logger = require('libs/log')(module);
-var queryManager = require('libs/queryManager').queryManager;
+const  util = require('util');
+const  async = require('async');
+const logger = require('libs/log')(module);
+const queryManager = require('libs/queryManager').queryManager;
+const NotUniqueError = require('libs/db').NotUniqueError;
+const ResultFieldNotFindError = require('libs/db').ResultFieldNotFindError;
 
 
 class Locale {

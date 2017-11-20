@@ -18,7 +18,7 @@ export function login(csrf, login, password) {
       types: [LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE],
       headers: {
         Accept: 'application/json',
-        // 'Content-Type': 'multipart/form-data;boundary=',
+        'Content-Type': 'multipart/form-data;boundary=',
       },
       body: formData,
       credentials:'same-origin',
