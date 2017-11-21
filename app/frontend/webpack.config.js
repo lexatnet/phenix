@@ -24,9 +24,9 @@ module.exports = {
       'windows.jQuery': 'jquery',
       Popper: ['popper.js', 'default']
     }),
-    new webpack.optimize.UglifyJsPlugin({
+    /*new webpack.optimize.UglifyJsPlugin({
       sourceMap: true
-    }),
+    }),*/
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new ExtractTextPlugin({

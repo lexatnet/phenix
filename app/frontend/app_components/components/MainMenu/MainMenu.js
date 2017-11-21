@@ -37,19 +37,19 @@ export default class MainMenu extends Component {
     return (
       <div className={classNames(styleMap[b])}>
         <nav className={navbarClasses}>
-          <a class="navbar-brand" href="#">App</a>
+          <a className="navbar-brand" href="#">App</a>
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-toggle="collapse"
             data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
             aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
           <div
-            class="collapse navbar-collapse"
+            className="collapse navbar-collapse"
             id="navbarSupportedContent"
             >
             <ul
@@ -58,12 +58,12 @@ export default class MainMenu extends Component {
               <li
                 className={navItemClasses}
                 >
-                <NavLink class="nav-link" to="/">home</NavLink>
+                <NavLink className="nav-link" to="/">home</NavLink>
               </li>
               <li
                 className={navItemClasses}
                 >
-                <NavLink class="nav-link" to="/login">login</NavLink>
+                <NavLink className="nav-link" to="/login">login</NavLink>
               </li>
             </ul>
           </div>

@@ -20,7 +20,7 @@ class App extends Component {
 
     const CHILD_FROM_ROUTE = React.Children.map(
       this.props.children,
-      child => React.cloneElement(
+      (child) => React.cloneElement(
         child,
         {
           ...this.props
@@ -38,14 +38,15 @@ class App extends Component {
   componentWillMount() { }
 
   componentDidMount() {
-    console.log(this.constructor.name, 'componentDidMount()');
     this.props.getCSRFToken();
     socket.emit('client:sendMessage', { bla: 'bla' });
   }
 }
 
 App.propTypes = {
-  user:PropTypes.object.isRequired
+  user:PropTypes.object.isRequired,
+  getCSRFToken: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired
 };
 
 function mapStateToProps(state, ownProps) {

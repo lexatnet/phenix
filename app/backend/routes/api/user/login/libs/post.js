@@ -18,7 +18,7 @@ function validate(req, callback) {
       // required validation
       reqiredFieldNames = ['login', 'password'];
       reqiredFieldNames.forEach(function(fieldName) {
-        if (validator.isNull(req.body[fieldName])) {
+        if (validator.isEmpty(req.body[fieldName])) {
           var text = req.__('{{fieldName}} is required', {
             fieldName: fieldName
           });

@@ -12,8 +12,6 @@ import {loginFormSubmit} from 'actions/form';
 
 const b = bem('login-form');
 
-export const fields = ['csrf', 'login', 'password', 'error'];
-
 const validate = (values) => {
   const errors = {};
 
@@ -41,63 +39,55 @@ export class LoginForm extends Component {
     super(props);
   }
 
+  getSubmitHandler() {
+    const {
+      csrf,
+      handleSubmit,
+      onSubmit
+    } = this.props;
+    return handleSubmit((data) => {onSubmit({csrf, ...data})});
+  }
+
   render() {
     const {
-      fields: {
-        csrf,
-        login,
-        password,
-        error
-      },
-      handleSubmit,
-      onSubmit,
       submitting
     } = this.props;
 
     const field = b.e('field');
     const fieldLabel = b.e('field-label');
-    const eCSRF = b.e('csrf');
     const eLogin = b.e('login');
     const ePassword = b.e('password');
+    const eSubmit = b.e('submit');
+    const eErrors = b.e('errors');
     return (
       <div className={b}>
         <h4 className={b.e('title')}>{'Login'}</h4>
         {(true) && (
-          <form onSubmit={handleSubmit(onSubmit)}>
-            {/*{error.value && <div className={b.e('errors')}>{error.value}</div>}*/}
-            <Field
-              component="input"
-              className={eCSRF}
-              type={'hidden'}
-              name={'csrf'}
-              id={eCSRF}
-              value={csrf.value}
-              />
+          <form onSubmit={this.getSubmitHandler()}>
+            {/*{error.value && <div className={eErrors}>{error.value}</div>}*/}
             <div className={field}>
               <label className={fieldLabel} htmlFor={eLogin}>{'Login'}</label>
-              {eLogin.touched && eLogin.error && <div className={b.e('errors')}>{eLogin.error}</div>}
+              {eLogin.touched && eLogin.error && <div className={eErrors}>{eLogin.error}</div>}
               <Field
                 component="input"
                 className={eLogin}
                 type={'text'}
                 name={'login'}
                 id={eLogin}
-                placeholder={'login'}
-                {...login}/>
+                placeholder={'login'}/>
             </div>
             <div className={field}>
               <label className={fieldLabel} htmlFor={ePassword}>{'Password'}</label>
-              {ePassword.touched && ePassword.error && <div className={b.e('errors')}>{ePassword.error}</div>}
+              {ePassword.touched && ePassword.error && <div className={eErrors}>{ePassword.error}</div>}
               <Field
                 component="input"
                 className={ePassword}
                 type="password"
                 name={'password'}
-                id={ePassword}
-                {...password}/>
+                id={ePassword}/>
             </div>
             <button
-              className={b.e('submit')}
+              className={eSubmit}
               type="submit"
               disabled={submitting}>
             {'Submit'}
@@ -110,18 +100,15 @@ export class LoginForm extends Component {
 }
 
 LoginForm.propTypes = {
-  fields: PropTypes.object.isRequired, // TODO: Specify structure
   onSubmit: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired
+  submitting: PropTypes.bool.isRequired,
+  csrf: PropTypes.string,
+  handleSubmit: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
   return {
-    fields: {
-      csrf: {
-        value: get(state, 'form.login.csrf.value')
-      }
-    }
+    csrf: get(state, 'form.login.csrf.value')
   };
 }
 
@@ -143,7 +130,6 @@ const connectedLoginForm = connect(
 export default reduxForm(
   {
     form: 'login',
-    fields,
     validate,
   }
 )(connectedLoginForm);

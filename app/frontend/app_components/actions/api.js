@@ -17,10 +17,24 @@ export function login(csrf, login, password) {
       method: 'POST',
       types: [LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE],
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data;boundary=',
+        Accept: 'application/json'
       },
       body: formData,
+      credentials:'same-origin',
+    },
+  };
+}
+
+
+export const GET_USER_REQUEST = 'GET_USER_REQUEST';
+export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
+export const GET_USER_FAILURE = 'GET_USER_FAILURE';
+export function getUser() {
+  return {
+    [RSAA]: {
+      endpoint: '/api/user',
+      method: 'GET',
+      types: [GET_USER_REQUEST, GET_USER_SUCCESS, GET_USER_FAILURE],
       credentials:'same-origin',
     },
   };
@@ -29,7 +43,6 @@ export function login(csrf, login, password) {
 export const CSRF_TOKEN_REQUEST = 'CSRF_TOKEN_REQUEST';
 export const CSRF_TOKEN_SUCCESS = 'CSRF_TOKEN_SUCCESS';
 export const CSRF_TOKEN_FAILURE = 'CSRF_TOKEN_FAILURE';
-
 export function getCSRFToken() {
   return {
     [RSAA]: {

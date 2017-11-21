@@ -11,6 +11,7 @@ function CSRF(options) {
 }
 
 function csrf(req, res, next) {
+  console.log('req.body->',JSON.stringify(req.body));
   async.waterfall([
     function(callback) {
       if (!req.session.csrf) {
