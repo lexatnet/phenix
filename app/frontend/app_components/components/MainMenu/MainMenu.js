@@ -3,14 +3,17 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { routerActions } from 'react-router-redux';
 import bem from 'utility/BEM.js';
 import style from './style.scss';
 import styleMap from './style.scss.json';
 import classNames from 'classnames';
+import LogoutForm from 'components/LogoutForm/LogoutForm';
+import {get} from 'lodash';
 
 const b = bem('main-menu');
 
-export default class MainMenu extends Component {
+export class MainMenu extends Component {
 
   constructor(props) {
     super(props);
@@ -18,6 +21,12 @@ export default class MainMenu extends Component {
 
   render() {
     console.log(this.constructor.name, 'render()', this.props, style, b, styleMap[b]);
+
+    const {
+      user
+    } = this.props;
+
+    const isLoggedIn = (get(user, 'id')) ? (true) : (false);
     const navClasses = classNames(
       styleMap[b.e('nav')],
       'navbar-nav'
@@ -60,11 +69,19 @@ export default class MainMenu extends Component {
                 >
                 <NavLink className="nav-link" to="/">home</NavLink>
               </li>
-              <li
-                className={navItemClasses}
-                >
-                <NavLink className="nav-link" to="/login">login</NavLink>
-              </li>
+              {isLoggedIn ? (
+                <li
+                  className={navItemClasses}
+                  >
+                  <LogoutForm />
+                </li>
+              ):(
+                <li
+                  className={navItemClasses}
+                  >
+                  <NavLink className="nav-link" to="/login">login</NavLink>
+                </li>
+              )}
             </ul>
           </div>
         </nav>
@@ -73,4 +90,29 @@ export default class MainMenu extends Component {
   }
 }
 
-MainMenu.propTypes = {};
+MainMenu.propTypes = {
+  user: PropTypes.object.isRequired
+};
+
+
+function mapStateToProps(state, ownProps) {
+  return {
+    user: get(state, 'user')
+  };
+}
+
+function mapDispatchToProps(dispatch, ownProps) {
+  return bindActionCreators(
+    {
+      ...routerActions
+    },
+    dispatch
+  );
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MainMenu);
+
+

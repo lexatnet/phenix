@@ -108,7 +108,7 @@ LoginForm.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   return {
-    csrf: get(state, 'form.login.csrf.value')
+    csrf: get(state, 'csrf.value')
   };
 }
 

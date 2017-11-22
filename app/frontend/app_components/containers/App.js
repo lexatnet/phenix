@@ -6,7 +6,8 @@ import classnames from 'classnames';
 import { routerActions } from 'react-router-redux';
 import io from 'socket.io-client';
 let socket = io('http://localhost:3000', { path: '/app/socket.io' });
-import { getCSRFToken } from 'actions/api';
+import { getCSRFToken, getCurrentUser } from 'actions/api';
+import {get} from 'lodash'
 
 class App extends Component {
 
@@ -35,30 +36,47 @@ class App extends Component {
     );
   }
 
+  componentWillUpdate(nextProps) {
+    const {
+      push,
+      redirect
+    } = nextProps;
+
+    console.log('App.componentWillUpdate()',this.props, nextProps);
+
+    if (this._redirect != redirect) {
+      push(redirect);
+      this._redirect = redirect;
+    }
+  }
+
   componentWillMount() { }
 
   componentDidMount() {
     this.props.getCSRFToken();
+    this.props.getCurrentUser();
     socket.emit('client:sendMessage', { bla: 'bla' });
   }
 }
 
 App.propTypes = {
-  user:PropTypes.object.isRequired,
   getCSRFToken: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired
+  getCurrentUser: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+  push: PropTypes.func.isRequired,
+  redirect: PropTypes.string.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
-  //let team =  ownProps.params.team || state.team;
   return {
-    user:  state.user,
+    redirect: get(state, 'app.redirect')
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(Object.assign({
-    getCSRFToken
+    getCSRFToken,
+    getCurrentUser
   }, routerActions), dispatch);
 }
 

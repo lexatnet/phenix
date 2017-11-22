@@ -1,5 +1,5 @@
-var async = require('async');
-var HttpStatus = require('http-status-codes');
+const async = require('async');
+const HttpStatus = require('http-status-codes');
 
 function processLogoutForm(req, res, next) {
 

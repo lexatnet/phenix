@@ -9,5 +9,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.use('/api', require('./api/index').routes);
+router.use('/', require('./pages/index').routes);
 
 module.exports = router;

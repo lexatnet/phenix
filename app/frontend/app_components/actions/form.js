@@ -1,6 +1,7 @@
 import {
-  login as loginRequest
-} from './api';
+  login as loginRequest,
+  logout as logoutRequest
+} from 'actions/api';
 
 export function loginFormSubmit(data) {
   const {
@@ -9,4 +10,11 @@ export function loginFormSubmit(data) {
     password,
   } = data;
   return loginRequest(csrf, login, password);
+}
+
+export function logoutFormSubmit(data) {
+  const {
+    csrf
+  } = data;
+  return logoutRequest(csrf);
 }

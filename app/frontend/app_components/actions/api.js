@@ -25,16 +25,37 @@ export function login(csrf, login, password) {
   };
 }
 
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
-export const GET_USER_REQUEST = 'GET_USER_REQUEST';
-export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
-export const GET_USER_FAILURE = 'GET_USER_FAILURE';
-export function getUser() {
+export function logout(csrf) {
+  let formData = new FormData();
+  formData.append('csrf', csrf);
   return {
     [RSAA]: {
-      endpoint: '/api/user',
+      endpoint: '/api/user/logout',
+      method: 'POST',
+      types: [LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE],
+      headers: {
+        Accept: 'application/json'
+      },
+      body: formData,
+      credentials:'same-origin',
+    },
+  };
+}
+
+
+export const GET_CURRENT_USER_REQUEST = 'GET_CURRENT_USER_REQUEST';
+export const GET_CURRENT_USER_SUCCESS = 'GET_CURRENT_USER_SUCCESS';
+export const GET_CURRENT_USER_FAILURE = 'GET_CURRENT_USER_FAILURE';
+export function getCurrentUser() {
+  return {
+    [RSAA]: {
+      endpoint: '/api/user/profile/current',
       method: 'GET',
-      types: [GET_USER_REQUEST, GET_USER_SUCCESS, GET_USER_FAILURE],
+      types: [GET_CURRENT_USER_REQUEST, GET_CURRENT_USER_SUCCESS, GET_CURRENT_USER_FAILURE],
       credentials:'same-origin',
     },
   };
