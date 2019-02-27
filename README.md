@@ -4,10 +4,9 @@ requirements:
         - docker-compose
 
 steps:
-        ```
-        make init
-        make deps-install
-        ```
+```
+make initalize
+```
 
 Run local
     ```

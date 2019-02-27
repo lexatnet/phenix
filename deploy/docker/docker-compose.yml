@@ -28,10 +28,11 @@ services:
 
 
   backend:
-    image: node:6
+    image: node:latest
     working_dir: /app
     ports:
       - "6000:6000"
+      - "9229:9229"
     volumes:
       - ../../app/backend:/app
     links:
@@ -48,6 +49,7 @@ services:
     working_dir: /app
     ports:
       - "3000:3000"
+      - "9228:9229"
     volumes:
       - ../../app/frontend:/app
     links:
@@ -55,4 +57,9 @@ services:
     depends_on:
       - backend
     command: ['npm', 'start']
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
 

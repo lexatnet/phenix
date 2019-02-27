@@ -1,9 +1,11 @@
 var path = require('path');
 var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var MiniCssExtractPlugin = require('mini-css-extract-plugin');
+//const postcssPresetEnv = require('postcss-preset-env');
 var appRoot = require('app-root-path');
 
 module.exports = {
+  mode: 'development',
   devtool: 'source-map',
   entry: {
     app: [
@@ -28,10 +30,9 @@ module.exports = {
       sourceMap: true
     }),*/
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-    new ExtractTextPlugin({
+    new MiniCssExtractPlugin({
       filename: '[name]-bundle.css'
-    }),
+    })
   ],
   module: {
     rules: [
@@ -40,8 +41,8 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env'],
-            plugins: [require('babel-plugin-transform-object-rest-spread')]
+            presets: ['@babel/env'],
+            plugins: ['@babel/plugin-proposal-object-rest-spread']
           }
         },
         exclude: /(node_modules|bower_components)/,
@@ -49,53 +50,53 @@ module.exports = {
       // Extract css files
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: {
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          {
             loader:'css-loader',
             options: {
               sourceMap: true
             }
           }
-        })
+        ]
       },
       {
         test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader:'css-loader',
-              options: {
-                sourceMap: true
-              }
-            }, {
-              loader: 'postcss-loader',
-              options: {
-                ident: 'postcss',
-                plugins: (loader) => [
-
-                  //selectors isolation
-                  require('postcss-modules'),
-                  require('postcss-bem-linter'),
-
-                  // local reset
-                  require('postcss-autoreset'),
-                  require('postcss-cssnext'),
-
-                  //container expressions
-                  require('cq-prolyfill/postcss-plugin'),
-                ],
-                sourceMap: true
-              }
-            }, {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true
-              }
+        use: [
+          {
+            loader:'css-loader',
+            options: {
+              sourceMap: true
             }
-          ]
-        }),
+          }, {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: (loader) => [
+
+                //selectors isolation
+                require('postcss-modules'),
+                require('postcss-bem-linter'),
+
+                // local reset
+                require('postcss-autoreset'),
+                require('postcss-preset-env'),
+                //postcssPresetEnv(/* pluginOptions */),
+
+                //container expressions
+                require('cq-prolyfill/postcss-plugin'),
+              ],
+              sourceMap: true
+            }
+          }, {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true
+            }
+          }
+        ],
       }
     ],
   },

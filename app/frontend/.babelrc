@@ -1,21 +1,18 @@
 {
   "presets": [
-    "react",
+    "@babel/react",
     [
-      "env",
+      "@babel/preset-env",
       {
-        "targets": {
-          browsers: [
-            "last 2 versions",
-            "> 2%"
-          ]
-      },
-      "debug": true
-    }]
+        "targets": "last 2 versions, > 2%",
+        "debug": true
+      }
+    ]
   ],
   "plugins": [
+    "@babel/plugin-transform-react-jsx",
     [
-      "transform-object-rest-spread",
+      "@babel/plugin-proposal-object-rest-spread",
       {
         "useBuiltIns": true
       }
