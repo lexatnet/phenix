@@ -1,16 +1,17 @@
 import { compose, createStore, applyMiddleware } from 'redux';
-import { routerMiddleware } from 'react-router-redux';
-import { browserHistory } from 'react-router';
+import { routerMiddleware } from 'connected-react-router';
 import thunk from 'redux-thunk';
 import rootReducer from 'reducers';
 import DevTools from 'containers/DevTools';
 import { persistState } from 'redux-devtools';
 import { apiMiddleware } from 'redux-api-middleware';
 import combineActionsMiddleware from 'redux-combine-actions';
+import createHistory from 'history/createBrowserHistory';
+
+const history = createHistory();
 
 // import {cookie} from 'redux-effects-cookie'
 
-const reduxRouterMiddleware = routerMiddleware(browserHistory);
 const enhancer = compose(
 
   // Middleware you want to use in development:
@@ -18,7 +19,7 @@ const enhancer = compose(
     thunk,
     combineActionsMiddleware,
     apiMiddleware,
-    reduxRouterMiddleware
+    routerMiddleware(history)
   ),
 
   // Required! Enable Redux DevTools with the monitors you chose
@@ -34,8 +35,16 @@ function getDebugSessionKey() {
   return (matches && matches.length > 0) ? matches[1] : null;
 }
 
+export {
+  history
+};
+
 export default function configureStore(initialState) {
-  const store = createStore(rootReducer, initialState, enhancer);
+  const store = createStore(
+    rootReducer(history),
+    initialState,
+    enhancer
+  );
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

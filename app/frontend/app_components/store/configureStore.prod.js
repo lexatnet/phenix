@@ -1,14 +1,15 @@
 import { compose, createStore, applyMiddleware } from 'redux';
-import { routerMiddleware } from 'react-router-redux';
-import { browserHistory } from 'react-router';
+import { routerMiddleware } from 'connected-react-router';
 import thunk from 'redux-thunk';
 import rootReducer from '../reducers';
 import { apiMiddleware } from 'redux-api-middleware';
+import combineActionsMiddleware from 'redux-combine-actions';
 
-const reduxRouterMiddleware = routerMiddleware(browserHistory);
 const enhancer = applyMiddleware(
     thunk,
+    combineActionsMiddleware,
     apiMiddleware,
+    routerMiddleware
   );
 
 export default function configureStore(initialState) {

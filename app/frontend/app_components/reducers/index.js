@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
-import {routerReducer} from 'react-router-redux';
-import {reducer as formReducer} from 'redux-form';
-import {app} from './app';
-import {csrf} from './csrf';
-import {user} from './user';
+import { connectRouter } from 'connected-react-router';
+import { reducer as formReducer } from 'redux-form';
+import { app } from './app';
+import { csrf } from './csrf';
+import { user } from './user';
 
-const rootReducer = combineReducers(
+export default (history) => combineReducers(
   Object.assign(
     {
       app
@@ -17,12 +17,10 @@ const rootReducer = combineReducers(
       csrf
     },
     {
-      routing: routerReducer
+      router: connectRouter(history)
     },
     {
       form: formReducer.plugin({})
     }
   )
 );
-
-export default rootReducer;

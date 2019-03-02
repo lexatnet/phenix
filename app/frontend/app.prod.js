@@ -5,7 +5,7 @@ import App from 'containers/App.js';
 import {Route} from 'react-router';
 import configureStore from 'store/configureStore';
 import createHistory from 'history/createBrowserHistory';
-import {ConnectedRouter} from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router';
 import LoginPage from 'components/LoginPage/LoginPage.js';
 import HomePage from 'components/HomePage/HomePage.js';
 

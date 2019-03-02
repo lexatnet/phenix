@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import { routerActions } from 'react-router-redux';
+import { routerActions } from 'connected-react-router';
 import {Field, reduxForm} from 'redux-form';
 import {get} from 'lodash';
 import bem from 'utility/BEM.js';

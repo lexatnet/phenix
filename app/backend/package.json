@@ -44,15 +44,15 @@
     "postgrator": "^3.8.0",
     "recursive-readdir": "^2.2.2",
     "sharp": "^0.21.3",
-    "socket.io": "^2.0.3",
+    "socket.io": "^2.2.0",
     "swig": "^1.4.2",
     "validator": "^10.11.0",
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
+    "@babel/cli": "^7.2.3",
     "babel-eslint": "^10.0.1",
     "babel-preset-node8": "^1.2.0",
-    "eslint": "^5.14.1"
+    "eslint": "^5.15.0"
   }
 }

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-import { routerActions } from 'react-router-redux';
+import { routerActions } from 'connected-react-router';
 import io from 'socket.io-client';
 let socket = io('http://localhost:3000', { path: '/app/socket.io' });
 import { getCSRFToken, getCurrentUser } from 'actions/api';
-import {get} from 'lodash'
+import {get} from 'lodash';
 
 class App extends Component {
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { routerActions } from 'react-router-redux';
+import { routerActions } from 'connected-react-router';
 import bem from 'utility/BEM.js';
 import style from './style.scss';
 import styleMap from './style.scss.json';
