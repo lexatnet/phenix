@@ -3,21 +3,22 @@ var HttpStatus = require('http-status-codes');
 
 
 function createUserNotAuthenticatedFilter() {
+  const func = async function(ctx, next) {
 
-  return function(req, res, next) {
-
-    if (typeof req.session.userId !== 'number') {
-      return next(new HttpError(HttpStatus.FORBIDDEN));
+    if (typeof ctx.request.session.userId !== 'number') {
+      throw new HttpError(HttpStatus.FORBIDDEN);
     }
 
-    var userId = req.session.userId;
+    var userId = ctx.request.session.userId;
 
-    if (!req.accessManager.isUserAuthenticated(userId)) {
-      return next();
+    if (!ctx.request.accessManager.isUserAuthenticated(userId)) {
+      await next();
     }
 
-    return next(new HttpError(HttpStatus.FORBIDDEN));
+    throw new HttpError(HttpStatus.FORBIDDEN);
   };
+
+  return func;
 }
 
 module.exports = createUserNotAuthenticatedFilter();

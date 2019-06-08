@@ -4,20 +4,24 @@ var HttpStatus = require('http-status-codes');
 
 function createIsUserHasOneOfPermissionsFilter(permissionNames) {
 
-  return function(req, res, next) {
+  const func = async function(ctx, next) {
 
-    if (typeof req.session.userId !== 'number') {
-      return next(new HttpError(HttpStatus.FORBIDDEN));
+    if (typeof ctx.request.session.userId !== 'number') {
+      throw new HttpError(HttpStatus.FORBIDDEN);
     }
 
-    var userId = req.session.userId;
+    var userId = ctx.request.session.userId;
 
-    if (!req.accessManager.isUserHasOneOfPermissions(userId, permissionNames)) {
-      return next(new HttpError(HttpStatus.FORBIDDEN));
+    if (!ctx.request.accessManager.isUserHasOneOfPermissions(userId, permissionNames)) {
+      throw new HttpError(HttpStatus.FORBIDDEN);
     }
 
-    return next();
+    await next();
+
+    return;
   };
+
+  return func;
 }
 
 module.exports = createIsUserHasOneOfPermissionsFilter;

@@ -22,8 +22,7 @@ function AccessManager(options) {
   Object.assign(this, options);
 }
 
-AccessManager.prototype.addPermissionToRole = function(roleId, permissionId,
-  callback) {
+AccessManager.prototype.addPermissionToRole = function(roleId, permissionId, callback) {
   var own = this;
 
   var query = queryManager.query('rolePermissionInsert', [

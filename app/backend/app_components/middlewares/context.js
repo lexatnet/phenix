@@ -1,7 +1,6 @@
 var logger = require('libs/log')(module);
 
 
-
 /**
  * middleware
  * Create loadContext function in responce object

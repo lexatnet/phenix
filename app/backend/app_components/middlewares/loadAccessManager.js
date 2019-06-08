@@ -2,13 +2,13 @@ var async = require('async');
 var AccessManager = require('libs/accessManager').AccessManager;
 
 
-module.exports = function(req, res, next) {
+module.exports = async function(ctx, next) {
 
-  if (typeof req.session.userId !== 'number') return next();
+  if (typeof ctx.request.session.userId !== 'number') return next();
 
   var accessManager = new AccessManager();
-  var userId = req.session.userId;
-  req.accessManager = res.locals.accessManager = accessManager;
+  var userId = ctx.request.session.userId;
+  ctx.request.accessManager = ctx.request.locals.accessManager = accessManager;
 
 
   async.waterfall([
@@ -24,20 +24,20 @@ module.exports = function(req, res, next) {
       });
     },
     function(callback) {
-      res.locals.isUserHasPermission = function(permissionName) {
+      ctx.request.locals.isUserHasPermission = function(permissionName) {
         return accessManager.isUserHasPermission(userId, permissionName);
       };
 
-      res.locals.isUserHasOneOfPermissions = function(permissionNames) {
+      ctx.request.locals.isUserHasOneOfPermissions = function(permissionNames) {
         return accessManager.isUserHasOneOfPermissions(userId,
           permissionNames);
       };
 
-      res.locals.isUserHasRole = function(roleName) {
+      ctx.request.locals.isUserHasRole = function(roleName) {
         return accessManager.isUserHasRole(userId, roleName);
       };
 
-      res.locals.isUserAuthenticated = function() {
+      ctx.request.locals.isUserAuthenticated = function() {
         return accessManager.isUserAuthenticated(userId);
       };
       callback(null);
@@ -45,7 +45,5 @@ module.exports = function(req, res, next) {
   ], function(err) {
     next(err);
   });
-
-
 
 };

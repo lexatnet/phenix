@@ -1,12 +1,13 @@
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var config = require('config');
-var session = require('express-session');
-var i18n = require('i18n');
-var swig = require('swig');
+const path = require('path');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const config = require('config');
+const i18n = require('i18n');
+const swig = require('swig');
+const Koa = require('koa');
+const session = require('koa-session');
+const serve = require('koa-static');
 
 var PosgresSessionStore = require('libs/postgresSessionStore')(session);
 
@@ -42,7 +43,7 @@ i18n.configure({
 
 
 
-var app = express();
+var app = new Koa();
 
 // view engine setup
 app.engine('swig', swig.renderFile);
@@ -67,16 +68,19 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(i18n.init);
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({
-  // genid: function(req) {
-  //   return genuuid() // use UUIDs for session IDs
-  // },
-  secret: config.get('session.secret'),
-  key: config.get('session.key'),
-  cookie: config.get('session.cookie'),
-  store: new PosgresSessionStore()
-}));
+app.use(serve(path.join(__dirname, 'public')));
+app.use(session(
+  {
+    // genid: function(req) {
+    //   return genuuid() // use UUIDs for session IDs
+    // },
+    secret: config.get('session.secret'),
+    key: config.get('session.key'),
+    cookie: config.get('session.cookie'),
+    store: new PosgresSessionStore()
+  },
+  app
+));
 
 
 // custom middleware
